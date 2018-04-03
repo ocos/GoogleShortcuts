@@ -8,10 +8,14 @@
         up : 'k, up',
         down : 'j, down',
         focusInSearchInput : '/, backspace',
+        previousPage : 'left',
+        nextPage : 'right',
     };
 
     var googleHtmlIdentifiers = {
-        searchInput : '#lst-ib'
+        searchInput : '#lst-ib',
+        nextButton : '#pnnext',
+        prevButton : '#pnprev'
     };
 
     var idx = 0;
@@ -21,6 +25,16 @@
         link.css('background-color', '#fcc');
         if (focus) {link.focus(); }
         return link;
+    };
+    var gotoURLFromLink = function(button, ev){
+        if(button != null) {
+            var url = button.attr('href');
+            if(typeof url != 'undefined') {
+                location.href = url;
+            }
+        }
+        ev.stopPropagation();
+        ev.preventDefault();
     };
     key(shortcuts.openInNewTab, function(ev) {
         var link = select();
@@ -67,11 +81,20 @@
         var textInitial = searchInput.val();
 
         searchInput
-             .val('')
-             .val(textInitial)
-             .focus();
+            .val('')
+            .val(textInitial)
+            .focus();
 
         ev.stopPropagation();
         ev.preventDefault();
+    });
+    key(shortcuts.nextPage, function (ev) {
+        var button = $(googleHtmlIdentifiers.nextButton);
+        gotoURLFromLink(button, ev);
+    });
+
+    key(shortcuts.previousPage, function (ev) {
+        var button = $(googleHtmlIdentifiers.prevButton);
+        gotoURLFromLink(button, ev);
     });
 })();
