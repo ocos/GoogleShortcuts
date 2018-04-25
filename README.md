@@ -1,11 +1,13 @@
 Keyboard Shortcuts for Google Search
 ====================================
 
-* `/`: Focus search box
+* `/` or `backspace`: Focus search box
 * `Return`: Load selected result
 * `⌘+Return`: Load selected result in new tab/window
-* `j`: Select next result
-* `k`: Select previous result
+* `j` or `down`: Select next result
+* `k` or `up`: Select previous result
+* `left` : Previous page
+* `right` : Next page
 
 Installation
 ============
