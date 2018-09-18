@@ -7,7 +7,7 @@
         open : 'return',
         up : 'k, up',
         down : 'j, down',
-        focusInSearchInput : '/, backspace',
+        focusInSearchInput : '/, 9, backspace',
         previousPage : 'left',
         nextPage : 'right',
     };
@@ -20,8 +20,8 @@
 
     var idx = 0;
     var select = function(focus) {
-        $('h3.r a').css('background-color', 'inherit');
-        var link = $('h3.r:nth('+idx+') a');
+        $('div.r h3').css('background-color', 'inherit');
+        var link = $('div.r h3:nth('+idx+')');
         link.css('background-color', '#fcc');
         if (focus) {link.focus(); }
         return link;
@@ -29,7 +29,7 @@
     var gotoURLFromLink = function(button, ev){
         if(button != null) {
             var url = button.attr('href');
-            if(typeof url != 'undefined') {
+            if(typeof url !== 'undefined') {
                 location.href = url;
             }
         }
@@ -37,13 +37,13 @@
         ev.preventDefault();
     };
     key(shortcuts.openInNewTab, function(ev) {
-        var link = select();
+        var link = select().parent();
         window.open(link.attr('href'));
         ev.stopPropagation();
         ev.preventDefault();
     });
     key(shortcuts.open, function(ev) {
-        var link = select();
+        var link = select().parent();
         location.href = link.attr('href');
         ev.stopPropagation();
         ev.preventDefault();
@@ -53,7 +53,7 @@
 
     $(function() {
         document.getElementById('main').addEventListener("DOMSubtreeModified", function () {
-            var newNode = $('h3.r:nth(0) a');
+            var newNode = $('a h3:nth(0)');
             if (!node || (node.attr('href') != newNode.attr('href'))) {
                 idx = 0;
                 select();
@@ -63,7 +63,7 @@
     });
 
     key(shortcuts.down, function(ev) {
-        if (idx < $('h3.r a').length-1) {
+        if (idx < $('div.r h3').length-1) {
             idx++;
             select(true);
         }
